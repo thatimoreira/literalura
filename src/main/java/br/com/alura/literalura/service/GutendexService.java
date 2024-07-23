@@ -16,7 +16,8 @@ public class GutendexService {
 
     public GutendexResponse buscarLivros(String query) {
         try {
-            return gutendexClient.buscarLivros(query);
+            GutendexResponse response = gutendexClient.buscarLivros(query);
+            return response;
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
 
