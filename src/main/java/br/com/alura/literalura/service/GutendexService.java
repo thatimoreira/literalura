@@ -1,21 +1,25 @@
 // Classe de serviço que consome a API Gutendex
 package br.com.alura.literalura.service;
 
+import br.com.alura.literalura.client.GutendexClient;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
+
+import java.io.IOException;
 
 @Service
 public class GutendexService {
 
-    private final RestTemplate restTemplate;
-
-    public GutendexService() {
-        this.restTemplate = new RestTemplate();
-    }
+    @Autowired
+    private GutendexClient gutendexClient;
 
     public String buscarLivros(String query) {
-        String gutendexUrl = "https://gutendex.com/books?search=" + query;
+        try {
+            return gutendexClient.buscarLivros(query);
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
 
-        return restTemplate.getForObject(gutendexUrl, String.class);
+            return "Erro ao buscar livros";
+        }
     }
 }
