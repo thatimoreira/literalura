@@ -1,0 +1,42 @@
+package br.com.alura.literalura.client;
+
+import org.springframework.stereotype.Component;
+
+import java.io.IOException;
+import java.net.URI;
+import java.net.URLEncoder;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+import java.nio.charset.StandardCharsets;
+import java.util.logging.Logger;
+
+@Component
+public class GutendexClient {
+
+        private final HttpClient httpClient;
+        private static final Logger LOGGER = Logger.getLogger(GutendexClient.class.getName());
+
+    public GutendexClient() {
+        this.httpClient = HttpClient.newBuilder()
+                            .version(HttpClient.Version.HTTP_2)
+                            .followRedirects(HttpClient.Redirect.ALWAYS)
+                            .build();
+    }
+
+    public String buscarLivros(String query) throws IOException, InterruptedException {
+        String encodedQuery = URLEncoder.encode(query, StandardCharsets.UTF_8);
+        LOGGER.info("Encoded query: " + encodedQuery);
+        String gutendexUrl = "https://gutendex.com/books?search=";
+        HttpRequest request = HttpRequest.newBuilder()
+                                .GET()
+                                .uri(URI.create(gutendexUrl + encodedQuery))
+                                .build();
+
+        HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+        LOGGER.info("Response status code: " + response.statusCode());
+        LOGGER.info("Response body: " + response.body());
+
+        return response.body();
+    }
+}
