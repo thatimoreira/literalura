@@ -1,5 +1,7 @@
 package br.com.alura.literalura.client;
 
+import br.com.alura.literalura.model.GutendexResponse;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -15,6 +17,7 @@ import java.util.logging.Logger;
 public class GutendexClient {
 
         private final HttpClient httpClient;
+        private final ObjectMapper objectMapper;
         private static final Logger LOGGER = Logger.getLogger(GutendexClient.class.getName());
 
     public GutendexClient() {
@@ -22,9 +25,10 @@ public class GutendexClient {
                             .version(HttpClient.Version.HTTP_2)
                             .followRedirects(HttpClient.Redirect.ALWAYS)
                             .build();
+        this.objectMapper = new ObjectMapper();
     }
 
-    public String buscarLivros(String query) throws IOException, InterruptedException {
+    public GutendexResponse buscarLivros(String query) throws IOException, InterruptedException {
         String encodedQuery = URLEncoder.encode(query, StandardCharsets.UTF_8);
         LOGGER.info("Encoded query: " + encodedQuery);
         String gutendexUrl = "https://gutendex.com/books?search=";
@@ -37,6 +41,6 @@ public class GutendexClient {
         LOGGER.info("Response status code: " + response.statusCode());
         LOGGER.info("Response body: " + response.body());
 
-        return response.body();
+        return objectMapper.readValue(response.body(), GutendexResponse.class);
     }
 }
