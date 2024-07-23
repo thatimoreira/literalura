@@ -39,6 +39,15 @@ public class Livro {
         this.autores = autores;
     }
 
+    @Override
+    public String toString() {
+        return "Livro{" +
+                "id: " + id +
+                ", título: '" + titulo + '\'' +
+                ", autores: " + autores +
+                '}';
+    }
+
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static class Author {
         @JsonProperty("name")
@@ -72,6 +81,15 @@ public class Livro {
 
         public void setAnoDeObito(int anoDeObito) {
             this.anoDeObito = anoDeObito;
+        }
+
+        @Override
+        public String toString() {
+            return "Autor{" +
+                    "nome: '" + nome + '\''+
+                    ", ano de nascimento: " + anoDeNascimento +
+                    ", ano de óbito: " + anoDeObito +
+                    '}';
         }
     }
 }
