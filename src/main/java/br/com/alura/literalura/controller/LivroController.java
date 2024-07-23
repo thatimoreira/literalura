@@ -14,7 +14,12 @@ public class LivroController {
     private GutendexService gutendexService;
 
     @GetMapping("/api/livros")
-    public GutendexResponse buscarLivros(@RequestParam String query) {
-        return gutendexService.buscarLivros(query);
+    public String buscarLivros(@RequestParam String query) {
+        GutendexResponse response = gutendexService.buscarLivros(query);
+
+        if (response != null){
+            return response.toString();
+        }
+        return "Nenhum dado encontrado!";
     }
 }
