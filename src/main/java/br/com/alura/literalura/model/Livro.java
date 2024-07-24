@@ -13,7 +13,7 @@ public class Livro {
     private String titulo;
 
     @JsonProperty("authors")
-    private List<Author> autores;
+    private List<Autor> autores;
 
     public int getId() {
         return id;
@@ -31,11 +31,11 @@ public class Livro {
         this.titulo = titulo;
     }
 
-    public List<Author> getAutores() {
+    public List<Autor> getAutores() {
         return autores;
     }
 
-    public void setAutores(List<Author> autores) {
+    public void setAutores(List<Autor> autores) {
         this.autores = autores;
     }
 
@@ -49,7 +49,7 @@ public class Livro {
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
-    public static class Author {
+    public static class Autor {
         @JsonProperty("name")
         private String nome;
 
@@ -57,7 +57,7 @@ public class Livro {
         private int anoDeNascimento;
 
         @JsonProperty("death_year")
-        private int anoDeObito;
+        private Integer anoDeObito;
 
         public String getNome() {
             return nome;
@@ -75,11 +75,11 @@ public class Livro {
             this.anoDeNascimento = anoDeNascimento;
         }
 
-        public int getAnoDeObito() {
+        public Integer getAnoDeObito() {
             return anoDeObito;
         }
 
-        public void setAnoDeObito(int anoDeObito) {
+        public void setAnoDeObito(Integer anoDeObito) {
             this.anoDeObito = anoDeObito;
         }
 
