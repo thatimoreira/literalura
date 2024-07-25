@@ -2,18 +2,44 @@ package br.com.alura.literalura.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.persistence.*;
 
 import java.util.List;
 
+@Entity
+@Table(name = "livros")
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Livro {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    @Column(nullable = false)
     @JsonProperty("title")
     private String titulo;
 
+    @ManyToMany
+    @JoinTable(
+            name = "livro_autor",
+            joinColumns = @JoinColumn(name = "livro_id"),
+            inverseJoinColumns = @JoinColumn(name = "autor_id")
+    )
     @JsonProperty("authors")
     private List<Autor> autores;
+
+    @ElementCollection
+    @CollectionTable(
+            name = "idiomas",
+            joinColumns = @JoinColumn(name = "livro_id")
+    )
+    @Column(name = "idioma")
+    @JsonProperty("languages")
+    private List<String> idiomas;
+
+    @Column(name = "numero_de_downloads")
+    @JsonProperty("download_count")
+    private Integer numeroDeDownloads;
 
     public int getId() {
         return id;
@@ -39,57 +65,30 @@ public class Livro {
         this.autores = autores;
     }
 
+    public List<String> getIdiomas() {
+        return idiomas;
+    }
+
+    public void setIdiomas(List<String> idiomas) {
+        this.idiomas = idiomas;
+    }
+
+    public int getNumeroDeDownloads() {
+        return numeroDeDownloads;
+    }
+
+    public void setNumeroDeDownloads(int numeroDeDownloads) {
+        this.numeroDeDownloads = numeroDeDownloads;
+    }
+
     @Override
     public String toString() {
         return "Livro{" +
                 "id: " + id +
                 ", título: '" + titulo + '\'' +
                 ", autores: " + autores +
+                ", idiomas: " + idiomas +
+                ", numeroDeDownloads: " + numeroDeDownloads +
                 '}';
-    }
-
-    @JsonIgnoreProperties(ignoreUnknown = true)
-    public static class Autor {
-        @JsonProperty("name")
-        private String nome;
-
-        @JsonProperty("birth_year")
-        private int anoDeNascimento;
-
-        @JsonProperty("death_year")
-        private Integer anoDeObito;
-
-        public String getNome() {
-            return nome;
-        }
-
-        public void setNome(String nome) {
-            this.nome = nome;
-        }
-
-        public int getAnoDeNascimento() {
-            return anoDeNascimento;
-        }
-
-        public void setAnoDeNascimento(int anoDeNascimento) {
-            this.anoDeNascimento = anoDeNascimento;
-        }
-
-        public Integer getAnoDeObito() {
-            return anoDeObito;
-        }
-
-        public void setAnoDeObito(Integer anoDeObito) {
-            this.anoDeObito = anoDeObito;
-        }
-
-        @Override
-        public String toString() {
-            return "Autor{" +
-                    "nome: '" + nome + '\''+
-                    ", ano de nascimento: " + anoDeNascimento +
-                    ", ano de óbito: " + anoDeObito +
-                    '}';
-        }
     }
 }
