@@ -1,6 +1,5 @@
 package br.com.alura.literalura;
 
-import br.com.alura.literalura.service.GutendexService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -11,11 +10,12 @@ public class LiteraluraApplication implements CommandLineRunner {
 
 	private final MenuService menuService;
 
-	public LiteraluraApplication(MenuService menuService) {
-		this.menuService = menuService;
-	}
+	@Autowired
+    public LiteraluraApplication(MenuService menuService) {
+        this.menuService = menuService;
+    }
 
-	public static void main(String[] args) {
+    public static void main(String[] args) {
 		SpringApplication.run(LiteraluraApplication.class, args);
 	}
 
