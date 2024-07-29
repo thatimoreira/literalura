@@ -2,44 +2,24 @@ package br.com.alura.literalura.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import jakarta.persistence.*;
 
 import java.util.List;
 
-@Entity
-@Table(name = "livros")
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Livro {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(nullable = false)
     @JsonProperty("title")
     private String titulo;
 
-    @ManyToMany
-    @JoinTable(
-            name = "livro_autor",
-            joinColumns = @JoinColumn(name = "livro_id"),
-            inverseJoinColumns = @JoinColumn(name = "autor_id")
-    )
     @JsonProperty("authors")
     private List<Autor> autores;
 
-    @ElementCollection
-    @CollectionTable(
-            name = "idiomas",
-            joinColumns = @JoinColumn(name = "livro_id")
-    )
-    @Column(name = "idioma")
     @JsonProperty("languages")
     private List<String> idiomas;
 
-    @Column(name = "numero_de_downloads")
     @JsonProperty("download_count")
-    private Integer numeroDeDownloads;
+    private int numeroDeDownloads;
 
     public int getId() {
         return id;
@@ -83,12 +63,12 @@ public class Livro {
 
     @Override
     public String toString() {
-        return "Livro{" +
-                "id: " + id +
-                ", título: '" + titulo + '\'' +
-                ", autores: " + autores +
-                ", idiomas: " + idiomas +
-                ", numeroDeDownloads: " + numeroDeDownloads +
-                '}';
+        return "\n              Livro { " +
+                "id: " + id + " | " +
+                "título: '" + titulo + "' | " +
+                "autores(as): " + autores + "\n                          | " +
+                "idiomas: " + idiomas + " | " +
+                "nº de downloads: " + numeroDeDownloads +
+                " }";
     }
 }

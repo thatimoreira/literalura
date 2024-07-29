@@ -1,35 +1,18 @@
 package br.com.alura.literalura.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import jakarta.persistence.*;
 
-@Entity
-@Table(name = "autores")
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Autor {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
     @JsonProperty("name")
-    @Column(nullable = false)
     private String nome;
 
     @JsonProperty("birth_year")
-    @Column(name = "ano_de_nascimento")
     private int anoDeNascimento;
 
     @JsonProperty("death_year")
-    @Column(name = "ano_de_obito")
-    private Integer anoDeObito;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
+    private int anoDeObito;
 
     public String getNome() {
         return nome;
@@ -47,21 +30,24 @@ public class Autor {
         this.anoDeNascimento = anoDeNascimento;
     }
 
-    public Integer getAnoDeObito() {
+    public int getAnoDeObito() {
         return anoDeObito;
     }
 
-    public void setAnoDeObito(Integer anoDeObito) {
+    public void setAnoDeObito(int anoDeObito) {
         this.anoDeObito = anoDeObito;
+    }
+
+    public boolean isVivoAno(int ano) {
+        return (anoDeNascimento <= ano) && (anoDeObito == 0 || anoDeObito >= ano);
     }
 
     @Override
     public String toString() {
-        return "Autor{" +
-                "nome: '" + nome + '\''+
-                ", ano de nascimento: " + anoDeNascimento +
-                ", ano de óbito: " + anoDeObito +
-                '}';
+        return "\n                     Autores(as) { " +
+                "nome: " + nome + " | " +
+                "ano de nascimento: " + anoDeNascimento + " | " +
+                "ano de óbito: " + anoDeObito +
+                " } ";
     }
 }
-
