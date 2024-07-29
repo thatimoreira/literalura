@@ -1,90 +1,112 @@
-// Classe de serviço que consome a API Gutendex
 package br.com.alura.literalura.service;
 
-import br.com.alura.literalura.client.GutendexClient;
 import br.com.alura.literalura.model.Autor;
 import br.com.alura.literalura.model.GutendexResponse;
 import br.com.alura.literalura.model.Livro;
-import br.com.alura.literalura.repository.AutorRepository;
-import br.com.alura.literalura.repository.LivroRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
 
 @Service
 public class GutendexService {
+    private static final    Logger logger = LoggerFactory.getLogger(GutendexService.class);
+    private final ApiClient apiClient;
+    private final ObjectMapper objectMapper;
+    private final List<Livro> catalogoLivros;
+    private final List<Autor> catalogoAutores;
 
-//    private final List<Livro> livrosInseridos = new ArrayList<>();
-    private final AtomicInteger idCounter;
-    private final LivroRepository livroRepository;
-    private final AutorRepository autorRepository;
-    private final GutendexClient gutendexClient;
-
-    @Autowired
-    private GutendexService(GutendexClient gutendexClient, LivroRepository livroRepository, AutorRepository autorRepository) {
-        this.gutendexClient = gutendexClient;
-        this.livroRepository = livroRepository;
-        this.autorRepository = autorRepository;
-        this.idCounter = new AtomicInteger(buscarUltimoID() + 1);
+    public GutendexService(ApiClient apiClient) {
+        this.apiClient = apiClient;
+        this.objectMapper = new ObjectMapper();
+        this.catalogoLivros = new ArrayList<>();
+        this.catalogoAutores = new ArrayList<>();
     }
 
-    private int buscarUltimoID() {
-        return livroRepository.findTopByOrderByIdDesc()
-                .map(Livro::getId)
-                .orElse(0);
-    }
+    public GutendexResponse buscarLivros(String searchQuery, String language) {
+        // Constrói a URL base
+        StringBuilder urlBuilder = new StringBuilder("https://gutendex.com/books/?");
 
-    public GutendexResponse buscarLivros(String query) {
+        // Adiciona os parÂmetros de consulta quando presentes
+        if (searchQuery != null && !searchQuery.isEmpty()) {
+            urlBuilder.append("search=").append(ApiClient.encodeValue(searchQuery)).append("&");
+        }
+        if (language != null && !language.isEmpty()) {
+            urlBuilder.append("languages=").append(ApiClient.encodeValue(language)).append("&");
+        }
+
+        // Quando precisar, remover o último '&'
+        String url;
+        if (urlBuilder.toString().endsWith("&"))
+        {
+            url = urlBuilder.substring(0, urlBuilder.length() - 1);
+        } else {
+            url = urlBuilder.toString();
+        }
+        logger.info("Solicitando URL: {}", url);
+
         try {
-            GutendexResponse response = gutendexClient.buscarLivros(query);
+            String response = apiClient.get(url);
+            logger.info("Response da API Gutendex: {}", response);
 
-            if (response != null && !response.getResults().isEmpty()) {
-                Livro livro = response.getResults().get(0);
-                autorRepository.saveAll(livro.getAutores()); // Salva todos os autores primeiro
-                livroRepository.save(livro);
+            // Checar se a resposta está vazia
+            if (response == null || response.isEmpty()) {
+                logger.warn("Resposta vazia da API Gutendex");
+                return null;
             }
-            return response;
+
+            // Converter json para objeto GutendexResponse
+            GutendexResponse gutendexResponse = objectMapper.readValue(response, GutendexResponse.class);
+            logger.info("Response convertida: {}", gutendexResponse);
+
+            if (gutendexResponse != null &&
+                    gutendexResponse.getResultados() != null &&
+                    !gutendexResponse.getResultados().isEmpty()) {
+                Livro primeiroLivro = gutendexResponse.getResultados().get(0);
+                catalogoLivros.add(primeiroLivro);
+
+                if (primeiroLivro.getAutores() != null && !primeiroLivro.getAutores().isEmpty()) {
+                    Autor primeiroAutor = primeiroLivro.getAutores().get(0);
+                    catalogoAutores.add(primeiroAutor);
+                }
+            }
+
+            return gutendexResponse;
         } catch (IOException | InterruptedException e) {
-            e.printStackTrace();
+            logger.error("Erro ao fazer a solicitação HTTP", e);
 
             return null;
         }
     }
 
-    public boolean inserirNovoLivro(String titulo, List<Autor> autores) {
-        Livro novoLivro = new Livro();
-        novoLivro.setId(idCounter.getAndIncrement());
-        novoLivro.setTitulo(titulo);
-
-        autorRepository.saveAll(autores); // Salvar todos os autores de uma vez
-
-        novoLivro.setAutores(autores);
-        livroRepository.save(novoLivro); // Persistir no banco de dados
-
-        return true;
-    }
-
-    public List<Livro> listarTodosLivrosComAutores() {
-        return livroRepository.findAll();
-    }
-
-    public List<Livro> listarLivrosPorTitulo(String titulo) {
-        return livroRepository.findByTituloContainingIgnoreCase(titulo);
+    public List<Livro> listarTodosLivros() {
+        return new ArrayList<>(catalogoLivros);
     }
 
     public List<Livro> listarLivrosPorIdioma(String idioma) {
-//        List<Livro> resultado = new ArrayList<>();
-//        for (Livro livro : livrosInseridos) {
-//            if (livro.getIdiomas() != null && !livro.getIdiomas().isEmpty()) {
-//                if (livro.getIdiomas().get(0).equalsIgnoreCase(idioma)) {
-//                    resultado.add(livro);
-//                }
-//            }
-//        }
-//        return resultado;
-        return livroRepository.findByIdiomasContaining(idioma);
+        return catalogoLivros.stream()
+                .filter(livro -> livro.getIdiomas() != null &&
+                        !livro.getIdiomas().isEmpty() &&
+                        livro.getIdiomas().get(0).equals(idioma))
+                .collect(Collectors.toList());
+    }
+
+    public List<Livro> listarLivrosPesquisados() {
+        return new ArrayList<>(catalogoLivros);
+    }
+
+    public List<Autor> listarTodosAutores() {
+        return new ArrayList<>(catalogoAutores);
+    }
+
+    public List<Autor> listarAutoresVivosNoAno(int ano) {
+        return catalogoAutores.stream()
+                .filter(autor -> autor.isVivoAno(ano))
+                .collect(Collectors.toList());
     }
 }
