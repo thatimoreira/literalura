@@ -109,4 +109,8 @@ public class GutendexService {
                 .filter(autor -> autor.isVivoAno(ano))
                 .collect(Collectors.toList());
     }
+
+    public long contarLivrosPorIdioma(String idioma) {
+        return livroRepository.countByIdioma(idioma);
+    }
 }

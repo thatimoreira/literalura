@@ -17,4 +17,8 @@ public class LivroController {
                                       @RequestParam(name = "languages", required = false) String language) {
         return gutendexService.buscarLivros(searchQuery, language);
     }
+    @GetMapping("books/countByLanguage")
+    public long contarLivrosPorIdioma(@RequestParam(name = "language", required = false) String language) {
+        return gutendexService.contarLivrosPorIdioma(language);
+    }
 }

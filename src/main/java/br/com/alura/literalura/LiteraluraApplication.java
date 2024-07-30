@@ -45,7 +45,8 @@ public class LiteraluraApplication implements CommandLineRunner {
 			System.out.println("4. Listar todos os livros pesquisados");
 			System.out.println("5. Listar todos os autores pesquisados");
 			System.out.println("6. Listar autores vivos em um determinado ano");
-			System.out.println("7. Sair");
+			System.out.println("7. Listar total de livros por idioma");
+			System.out.println("8. Sair");
 			System.out.print(">> ");                                            	
 
 			int opcao = teclado.nextInt();
@@ -88,6 +89,32 @@ public class LiteraluraApplication implements CommandLineRunner {
 					autoresVivos.forEach(System.out::println);
 					break;
 				case 7:
+					System.out.println("\nIdiomas disponíveis:");
+					System.out.println(" - Alemão: de");
+					System.out.println(" - Inglês: en");
+					System.out.println(" - Espanhol: es");
+					System.out.println(" - Francês: fr");
+					System.out.println(" - Português: pt");
+					System.out.print(">> ");
+					String lang = teclado.nextLine().toLowerCase();
+					long totalLivrosIdioma = gutendexService.contarLivrosPorIdioma(lang);
+					if (lang.equalsIgnoreCase("de")) {
+						lang = "alemão";
+					} else if (lang.equalsIgnoreCase("en")) {
+						lang = "inglês";
+					} else if (lang.equalsIgnoreCase("es")) {
+						lang = "espanhol";
+					} else if (lang.equalsIgnoreCase("fr")) {
+						lang = "francês";
+					} else if (lang.equalsIgnoreCase("pt")) {
+						lang = "português";
+					} else {
+						System.out.println("\nIdioma inválido ou não suportado para esta consulta!");
+						break;
+					}
+					System.out.println("\nTotal de livros em " + lang + ": " + totalLivrosIdioma);
+					break;
+				case 8:
 					running = false;
 					System.out.println("Saindo...\n");
 					teclado.close();
