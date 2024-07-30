@@ -72,15 +72,15 @@ Para visualizar as funcionalidades, você pode clonar e testar o LiterAlura loca
 
 #### Rotas para teste
 * Buscar livros por título:
-  ```sh
+  ```sql
   GET http://localhost:8080/books?search=titulo
   
 * Buscar livros por autor:
-  ```sh
+  ```sql
   GET http://localhost:8080/books?search=autor
   
 * Buscar livros por idioma:
-  ```sh
+  ```sql
   GET http://localhost:8080/books?languages=idioma
  <br> 
 
@@ -94,10 +94,20 @@ Para visualizar as funcionalidades, você pode clonar e testar o LiterAlura loca
 
 #### Instalação
 
-1. Clone o repositório:git clone https://github.com/thatimoreira/literalura.git
-2. Entre no diretório do projetocd literalura
-3. Configure o banco de dados PostgreSQL com as variáveis de ambiente:export SPRING_DATASOURCE_URL=jdbc:postgresql://localhost:5432/literaluraexport SPRING_DATASOURCE_USERNAME=seu-usuarioexport SPRING_DATASOURCE_PASSWORD=sua-senha
-4. Rode a aplicação:./mvnw spring-boot:run
+1. Clone o repositório:
+   ```bash
+   git clone https://github.com/thatimoreira/literalura.git
+2. Entre no diretório do projeto
+   ```bash
+   cd literalura
+3. Configure o banco de dados PostgreSQL com as variáveis de ambiente:
+   ```bash
+   export SPRING_DATASOURCE_URL=jdbc:postgresql://localhost:5432/literalura
+   export SPRING_DATASOURCE_USERNAME=seu-usuario
+   export SPRING_DATASOURCE_PASSWORD=sua-senha
+4. Rode a aplicação:
+   ```bash
+   ./mvnw spring-boot:run
 <br>
 
 ## Tecnologias Utilizadas
