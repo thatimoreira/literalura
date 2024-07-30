@@ -39,10 +39,10 @@ As funcionalidades básicas do projeto foram implementadas e melhorias poderão 
   ![Buscar Livros por Título](./assets/images/buscar-livros-por-titulo.png)
 
 - **Listar livros por idioma**: Lista todos os livros disponíveis no idioma escolhido.
-  ![Listar Livros por Idioma](./assets/images/listar-livros-por-idioma.png)
+  ![Listar Livros por Idioma](./assets/images/buscar-livros-por-idioma.png)
 
 - **Contar livros por idioma**: Exibe a quantidade de livros disponíveis em um idioma específico.
-  ![Contar Livros por Idioma](./assets/images/contar-livros-por-idioma.png)
+  ![Contar Livros por Idioma](./assets/images/listar-total-de-livros-por-idioma.png)
 
 - **Listar todos os livros pesquisados**: Mostra todos os livros que foram buscados e salvos no banco de dados.
   ![Listar Todos os Livros Pesquisados](./assets/images/listar-todos-os-livros-pesquisados.png)
