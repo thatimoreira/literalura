@@ -38,31 +38,31 @@ As funcionalidades básicas do projeto foram implementadas e melhorias poderão 
 ## Funcionalidades
 
 - **Menu inicial**<br>
-  ![Menu Inicial](./assets/images/menu-inicial.png)
+<img src="./assets/images/menu-inicial.png" alt="Tela de menu inicial do LiterAlura" width="400"/>
 <br>
 
-- **Buscar livros por título**: Permite buscar livros pelo título na API Gutendex.
-  ![Buscar Livros por Título](./assets/images/buscar-livros-por-titulo.png)
+- **Buscar livros por título**: Permite buscar livros pelo título na API Gutendex
+<img src="./assets/images/buscar-livros-por-titulo.png" alt="Tela de busca de livros por título" width="700"/>
 <br>
 
-- **Listar livros por idioma**: Lista todos os livros disponíveis no idioma escolhido.
-  ![Listar Livros por Idioma](./assets/images/buscar-livros-por-idioma.png)
+- **Listar livros por idioma**: Lista todos os livros disponíveis no idioma escolhido
+<img src="./assets/images/buscar-livros-por-idioma.png" alt="Tela de busca de livros por idioma" width="700"/>
 <br>
 
-- **Contar livros por idioma**: Exibe a quantidade de livros disponíveis em um idioma específico.
-  ![Contar Livros por Idioma](./assets/images/listar-total-de-livros-por-idioma.png)
+- **Contar livros por idioma**: Exibe a quantidade de livros disponíveis em um idioma específico
+<img src="./assets/images/listar-total-de-livros-por-idioma.png" alt="Tela de consulta do total de livros por idioma" width="300"/>
 <br>
 
-- **Listar todos os livros pesquisados**: Mostra todos os livros que foram buscados e salvos no banco de dados.
-  ![Listar Todos os Livros Pesquisados](./assets/images/listar-todos-os-livros-pesquisados.png)
+- **Listar todos os livros pesquisados**: Mostra todos os livros que foram buscados e salvos no banco de dados
+<img src="./assets/images/listar-todos-os-livros-pesquisados.png" alt="Tela de consulta de todos os livros pesquisados" width="700"/>
 <br>
 
-- **Listar todos os autores pesquisados**: Mostra todos os autores que foram buscados e salvos no banco de dados.
-  ![Listar Todos os Autores Pesquisados](./assets/images/listar-todos-os-autores-pesquisados.png)
+- **Listar todos os autores pesquisados**: Mostra todos os autores que foram buscados e salvos no banco de dados
+<img src="./assets/images/listar-todos-os-autores-pesquisados.png" alt="Tela de consulta de todos os autores pesquisados" width="700"/>
 <br>
 
-- **Listar autores vivos em um determinado ano**: Lista todos os autores que estavam vivos no ano especificado.
-  ![Listar Autores Vivos em um Determinado Ano](./assets/images/listar-autores-vivos-em-um-determinado-ano.png)
+- **Listar autores vivos em um determinado ano**: Lista todos os autores que estavam vivos no ano especificado
+<img src="./assets/images/listar-autores-vivos-em-um-determinado-ano.png" alt="Tela de consulta de lista de autores vivos em determinado ano" width="700"/>
   <br>
   <br>
 
