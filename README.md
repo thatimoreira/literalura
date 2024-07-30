@@ -71,14 +71,17 @@ As funcionalidades básicas do projeto foram implementadas e melhorias poderão 
 Para visualizar as funcionalidades, você pode clonar e testar o LiterAlura localmente, na IDE da sua preferência, ou utilizar as rotas disponibilizadas para testes com ferramentas como Insomnia ou Postman.
 
 #### Rotas para teste
-
-[incluir mais rotas]
-
-* Buscar livros por título:```sh``````GET /books?search=titulo```
-
-* Listar livros por idioma: GET /books?languages=pt
+* Buscar livros por título:
+  ```sh
+  GET http://localhost:8080/books?search=titulo
   
-* Contar livros por idioma: GET /books/countByLanguage?language=pt
+* Buscar livros por autor:
+  ```sh
+  GET http://localhost:8080/books?search=autor
+  
+* Buscar livros por idioma:
+  ```sh
+  GET http://localhost:8080/books?languages=idioma
  <br> 
 
 ## Acesso ao Projeto
