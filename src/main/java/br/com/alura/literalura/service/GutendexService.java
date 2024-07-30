@@ -103,11 +103,8 @@ public class GutendexService {
         return autorRepository.findAll();
     }
 
-    public List<Autor> listarAutoresVivosNoAno(int ano) {
-        return autorRepository.findAll()
-                .stream()
-                .filter(autor -> autor.isVivoAno(ano))
-                .collect(Collectors.toList());
+    public List<Autor> listarAutoresVivosNoAno(Integer ano) {
+        return autorRepository.findAutoresVivosNoAno(ano);
     }
 
     public long contarLivrosPorIdioma(String idioma) {
