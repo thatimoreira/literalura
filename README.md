@@ -1,6 +1,6 @@
 # LiterAlura
 
-[Capa do projeto](./assets/images/literalura-banner.png)
+![Capa do projeto](./assets/images/literalura-banner.png)
 
 ![GitHub License](https://img.shields.io/github/license/thatimoreira/literalura) 
 ![GitHub Issues](https://img.shields.io/github/issues/thatimoreira/literalura) 
