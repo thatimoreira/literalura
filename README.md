@@ -1,12 +1,12 @@
-# LiterAlura
-
 ![Capa do projeto](./assets/images/literalura-banner.png)
+# LiterAlura
 
 ![GitHub License](https://img.shields.io/github/license/thatimoreira/literalura) 
 ![GitHub Issues](https://img.shields.io/github/issues/thatimoreira/literalura) 
 ![GitHub Forks](https://img.shields.io/github/forks/thatimoreira/literalura) 
 ![GitHub Stars](https://img.shields.io/github/stars/thatimoreira/literalura)
-
+<br>
+<br>
 ## Índice
   * [Descrição do Projeto](#descrição-do-projeto)
   * [Status do Projeto](#status-do-projeto)
