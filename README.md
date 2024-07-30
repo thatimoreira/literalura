@@ -7,6 +7,7 @@
 ![GitHub Stars](https://img.shields.io/github/stars/thatimoreira/literalura)
 <br>
 <br>
+
 ## Índice
   * [Descrição do Projeto](#descrição-do-projeto)
   * [Status do Projeto](#status-do-projeto)
@@ -19,16 +20,20 @@
   * [Tecnologias Utilizadas](#tecnologias-utilizadas)
   * [Desenvolvido por](#desenvolvido-por)
   * [Licença](#licença)
+<br>
 
 ## Descrição do Projeto
 
 Literalura é uma plataforma para catalogar livros desenvolvida durante a trilha Back-end Java do programa One Next Education (Oracle e Alura). Utiliza Java com Spring Boot, integrando banco de dados e a API Gutendex. Seu objetivo é facilitar a busca de livros e exibir estatísticas sobre os títulos cadastrados.
 
 LiterAlura é uma ótima oportunidade para aplicar conceitos importantes de persistência de dados, integração com APIs externas, recursos avançados do Spring Framework, além de boas práticas de desenvolvimento e documentação de software.<br>
+<br>
 
 ## Status do Projeto
 
 As funcionalidades básicas do projeto foram implementadas e melhorias poderão ser feitas futuramente.
+<br>
+<br>
 
 ## Funcionalidades
 
@@ -59,7 +64,7 @@ As funcionalidades básicas do projeto foram implementadas e melhorias poderão 
 - **Listar autores vivos em um determinado ano**: Lista todos os autores que estavam vivos no ano especificado.
   ![Listar Autores Vivos em um Determinado Ano](./assets/images/listar-autores-vivos-em-um-determinado-ano.png)
   <br>
-  
+  <br>
 
 ## Demonstração da Aplicação
 
@@ -74,7 +79,7 @@ Para visualizar as funcionalidades, você pode clonar e testar o LiterAlura loca
 * Listar livros por idioma: GET /books?languages=pt
   
 * Contar livros por idioma: GET /books/countByLanguage?language=pt
-  
+ <br> 
 
 ## Acesso ao Projeto
 
@@ -90,6 +95,7 @@ Para visualizar as funcionalidades, você pode clonar e testar o LiterAlura loca
 2. Entre no diretório do projetocd literalura
 3. Configure o banco de dados PostgreSQL com as variáveis de ambiente:export SPRING_DATASOURCE_URL=jdbc:postgresql://localhost:5432/literaluraexport SPRING_DATASOURCE_USERNAME=seu-usuarioexport SPRING_DATASOURCE_PASSWORD=sua-senha
 4. Rode a aplicação:./mvnw spring-boot:run
+<br>
 
 ## Tecnologias Utilizadas
 
@@ -100,10 +106,13 @@ Para visualizar as funcionalidades, você pode clonar e testar o LiterAlura loca
 * Jackson
 * Maven
 * IDE: Intellij IDEA
+<br>
 
 ## Desenvolvido por
 
 Thatiana Moreira
+<br>
+<br>
 
 ## Licença
 
