@@ -3,13 +3,15 @@ package br.com.alura.literalura.service;
 import br.com.alura.literalura.model.Autor;
 import br.com.alura.literalura.model.GutendexResponse;
 import br.com.alura.literalura.model.Livro;
+import br.com.alura.literalura.repository.AutorRepository;
+import br.com.alura.literalura.repository.LivroRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -18,14 +20,15 @@ public class GutendexService {
     private static final    Logger logger = LoggerFactory.getLogger(GutendexService.class);
     private final ApiClient apiClient;
     private final ObjectMapper objectMapper;
-    private final List<Livro> catalogoLivros;
-    private final List<Autor> catalogoAutores;
+    private final LivroRepository livroRepository;
+    private final AutorRepository autorRepository;
 
-    public GutendexService(ApiClient apiClient) {
+    @Autowired
+    public GutendexService(ApiClient apiClient, LivroRepository livroRepository, AutorRepository autorRepository) {
         this.apiClient = apiClient;
         this.objectMapper = new ObjectMapper();
-        this.catalogoLivros = new ArrayList<>();
-        this.catalogoAutores = new ArrayList<>();
+        this.livroRepository = livroRepository;
+        this.autorRepository = autorRepository;
     }
 
     public GutendexResponse buscarLivros(String searchQuery, String language) {
@@ -68,12 +71,12 @@ public class GutendexService {
                     gutendexResponse.getResultados() != null &&
                     !gutendexResponse.getResultados().isEmpty()) {
                 Livro primeiroLivro = gutendexResponse.getResultados().get(0);
-                catalogoLivros.add(primeiroLivro);
 
                 if (primeiroLivro.getAutores() != null && !primeiroLivro.getAutores().isEmpty()) {
-                    Autor primeiroAutor = primeiroLivro.getAutores().get(0);
-                    catalogoAutores.add(primeiroAutor);
+                    Autor primeiroAutor = primeiroLivro.getAutores().iterator().next();
+                    autorRepository.save(primeiroAutor);
                 }
+                livroRepository.save(primeiroLivro);
             }
 
             return gutendexResponse;
@@ -85,27 +88,24 @@ public class GutendexService {
     }
 
     public List<Livro> listarTodosLivros() {
-        return new ArrayList<>(catalogoLivros);
+        return livroRepository.findAll();
     }
 
     public List<Livro> listarLivrosPorIdioma(String idioma) {
-        return catalogoLivros.stream()
-                .filter(livro -> livro.getIdiomas() != null &&
-                        !livro.getIdiomas().isEmpty() &&
-                        livro.getIdiomas().get(0).equals(idioma))
-                .collect(Collectors.toList());
+        return livroRepository.findByIdiomasContaining(idioma);
     }
 
     public List<Livro> listarLivrosPesquisados() {
-        return new ArrayList<>(catalogoLivros);
+        return livroRepository.findAll();
     }
 
     public List<Autor> listarTodosAutores() {
-        return new ArrayList<>(catalogoAutores);
+        return autorRepository.findAll();
     }
 
     public List<Autor> listarAutoresVivosNoAno(int ano) {
-        return catalogoAutores.stream()
+        return autorRepository.findAll()
+                .stream()
                 .filter(autor -> autor.isVivoAno(ano))
                 .collect(Collectors.toList());
     }

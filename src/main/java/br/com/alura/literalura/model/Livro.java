@@ -2,30 +2,49 @@ package br.com.alura.literalura.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.persistence.*;
 
-import java.util.List;
+import java.util.Set;
 
+@Entity
+@Table(name = "livros")
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Livro {
-    private int id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
+    @Column(nullable = false)
     @JsonProperty("title")
     private String titulo;
 
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "livro_autor",
+            joinColumns = @JoinColumn(name = "livro_id"),
+            inverseJoinColumns = @JoinColumn(name = "autor_id")
+    )
     @JsonProperty("authors")
-    private List<Autor> autores;
+    private Set<Autor> autores;
 
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(
+            name = "idiomas",
+            joinColumns = @JoinColumn(name = "livro_id")
+    )
+    @Column(name = "idioma")
     @JsonProperty("languages")
-    private List<String> idiomas;
+    private Set<String> idiomas;
 
+    @Column(name = "numero_de_downloads")
     @JsonProperty("download_count")
-    private int numeroDeDownloads;
+    private Integer numeroDeDownloads;
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -37,27 +56,27 @@ public class Livro {
         this.titulo = titulo;
     }
 
-    public List<Autor> getAutores() {
+    public Set<Autor> getAutores() {
         return autores;
     }
 
-    public void setAutores(List<Autor> autores) {
+    public void setAutores(Set<Autor> autores) {
         this.autores = autores;
     }
 
-    public List<String> getIdiomas() {
+    public Set<String> getIdiomas() {
         return idiomas;
     }
 
-    public void setIdiomas(List<String> idiomas) {
+    public void setIdiomas(Set<String> idiomas) {
         this.idiomas = idiomas;
     }
 
-    public int getNumeroDeDownloads() {
+    public Integer getNumeroDeDownloads() {
         return numeroDeDownloads;
     }
 
-    public void setNumeroDeDownloads(int numeroDeDownloads) {
+    public void setNumeroDeDownloads(Integer numeroDeDownloads) {
         this.numeroDeDownloads = numeroDeDownloads;
     }
 
