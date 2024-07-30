@@ -1,16 +1,13 @@
 # LiterAlura
 
-##### [incluir bages e imagem de capa]
+[Capa do projeto](./assets/images/literalura-banner.png)
 
-![GitHub License](https://img.shields.io/github/license/thatimoreira/literalura)
-![GitHub Issues](https://img.shields.io/github/issues/thatimoreira/literalura)
-![GitHub Forks](https://img.shields.io/github/forks/thatimoreira/literalura)
+![GitHub License](https://img.shields.io/github/license/thatimoreira/literalura) 
+![GitHub Issues](https://img.shields.io/github/issues/thatimoreira/literalura) 
+![GitHub Forks](https://img.shields.io/github/forks/thatimoreira/literalura) 
 ![GitHub Stars](https://img.shields.io/github/stars/thatimoreira/literalura)
 
 ## Índice
-
-* [LiterAlura](#literalura)
-  * [Índice](#índice)
   * [Descrição do Projeto](#descrição-do-projeto)
   * [Status do Projeto](#status-do-projeto)
   * [Funcionalidades](#funcionalidades)
@@ -35,13 +32,26 @@ As funcionalidades básicas do projeto foram implementadas e melhorias poderão 
 
 ## Funcionalidades
 
-* **Menu inicial**[incluir tela inicial com o menu]<br>
-* **Buscar livros por título**: Permite buscar livros pelo título na API Gutendex;[incluir tela com resultado da busca de livros por título]<br>
-* **Listar livros por idioma**: Lista todos os livros disponíveis no idioma escolhido;[incluir tela com a lista de livros por idioma]<br>
-* **Contar livros por idioma**: Exibe a quantidade de livros disponíveis em um idioma específico;[incluir tela com o total de livros por idioma]<br>
-* **Listar todos os livros pesquisados**: Mostra todos os livros que foram buscados e salvos no banco de dados;[incluir tela com lista de todos os livros pesquisados]<br>
-* **Listar todos os autores pesquisados**: Mostra todos os autores que foram buscados e salvos no banco de dados;[incluir tela com lista de todos os autores pesquisados]<br>
-* **Listar autores vivos em um determinado ano**: Lista todos os autores que estavam vivos no ano especificado.[incluir tela com lista de autores vivos em um determinado ano]
+- **Menu inicial**
+  ![Menu Inicial](./assets/images/menu-inicial.png)
+
+- **Buscar livros por título**: Permite buscar livros pelo título na API Gutendex.
+  ![Buscar Livros por Título](./assets/images/buscar-livros-por-titulo.png)
+
+- **Listar livros por idioma**: Lista todos os livros disponíveis no idioma escolhido.
+  ![Listar Livros por Idioma](./assets/images/listar-livros-por-idioma.png)
+
+- **Contar livros por idioma**: Exibe a quantidade de livros disponíveis em um idioma específico.
+  ![Contar Livros por Idioma](./assets/images/contar-livros-por-idioma.png)
+
+- **Listar todos os livros pesquisados**: Mostra todos os livros que foram buscados e salvos no banco de dados.
+  ![Listar Todos os Livros Pesquisados](./assets/images/listar-todos-os-livros-pesquisados.png)
+
+- **Listar todos os autores pesquisados**: Mostra todos os autores que foram buscados e salvos no banco de dados.
+  ![Listar Todos os Autores Pesquisados](./assets/images/listar-todos-os-autores-pesquisados.png)
+
+- **Listar autores vivos em um determinado ano**: Lista todos os autores que estavam vivos no ano especificado.
+  ![Listar Autores Vivos em um Determinado Ano](./assets/images/listar-autores-vivos-em-um-determinado-ano.png)
   
   <br>
   
